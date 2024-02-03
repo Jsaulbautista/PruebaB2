@@ -6,6 +6,6 @@ public class Main {
         inicio.setContentPane(new login().loginPanel);
         inicio.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         inicio.setVisible(true);
-        inicio.setSize(1000,600);
+        inicio.setSize(700,500);
     }
 }

@@ -4,8 +4,8 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class login {
+    static JFrame tran = new JFrame();
     private JPasswordField contraField;
-    private JButton iniciarSesionBoton;
     private JLabel inicio;
     private JLabel usuariolbl;
     private JLabel contralbl;
@@ -109,17 +109,28 @@ public class login {
             }
         });
 
+
         ENTERButton.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("hhhhh");
                 String contrasena = "1111";
                 if (contrasena.equals(numero)){
-                    JFrame tran = new JFrame();
+
                     tran.setContentPane(new Transaccion().ElegirTransaccion);
                     tran.setSize(700,500);
                     tran.setVisible(true);
+                    Main.inicio.dispose();
+                }else{
+                    JFrame emergente = new JFrame("ventana emergente");
+                    JOptionPane.showMessageDialog(emergente, "Contraseña Incorrecta, vuelva a intentarlo");
                 }
+
+
+                numero = "";
+                contraField.setText(numero);
             }
         });
     }
