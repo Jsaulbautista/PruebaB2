@@ -1,4 +1,7 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -29,16 +32,14 @@ public class login {
         a1Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                numero = numero + "1";
-                contraField.setText(numero);
-
-
+                numero = numero + "1";  //Listener para el botón de cada tecla del keypad
+                contraField.setText(numero); //Se modifica el textfield de estamanera
             }
         });
         a2Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                numero = numero + "2";
+                numero = numero + "2"; //se repite la misma acción que en el primero con todas las teclas
                 contraField.setText(numero);
 
 
@@ -114,26 +115,34 @@ public class login {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                System.out.println("hhhhh");
-                String contrasena = "1111";
-                if (contrasena.equals(numero)){
-
-                    tran.setContentPane(new Transaccion().ElegirTransaccion);
-                    tran.setSize(700,500);
-                    tran.setVisible(true);
-                    Main.inicio.dispose();
-                }else{
-                    JFrame emergente = new JFrame("ventana emergente");
-                    JOptionPane.showMessageDialog(emergente, "Contraseña Incorrecta, vuelva a intentarlo");
+                String contrasena = "1111";  //Contraseña quemada, valor que debe ingresarse para ingresar
+                try {
+                    if (contrasena.equals(numero)) {
+                        tran.setContentPane(new Transaccion().ElegirTransaccion);
+                        tran.setSize(700,500);
+                        tran.setVisible(true);
+                        tran.setLocationRelativeTo(null); //Se abre el menú si ingresa clave correcta
+                        Main.inicio.dispose(); //Se cierra la primera pantalla
+                    } else {
+                        JFrame emergente = new JFrame("Error de autenticación"); //JDialog para contraseñ aincorrecta
+                        Object[] options = {"OK"};
+                        JOptionPane pane = new JOptionPane("Intentar otra vez", JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION, null, options, options[0]);
+                        JDialog dialog = pane.createDialog(emergente, "Usuario incorrecto");
+                        dialog.setVisible(true);
+                    }
+                    numero = "";
+                    contraField.setText(numero); //Valores reiniciados al salir
+                } catch (Exception ex) {
+                    JFrame emergente = new JFrame("Error"); //Caso de error
+                    JOptionPane.showMessageDialog(emergente, "Error en el inicio de sesión");
+                    ex.printStackTrace();
                 }
 
-
-                numero = "";
-                contraField.setText(numero);
             }
         });
+
     }
+
 }
 
 
